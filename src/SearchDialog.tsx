@@ -30,7 +30,7 @@ import {
   Wrap,
 } from "@chakra-ui/react";
 import { useScheduleContext } from "./ScheduleContext.tsx";
-import { Lecture } from "./types.ts";
+import { Lecture, Schedule } from "./types.ts";
 import { parseSchedule } from "./utils.ts";
 import axios, { AxiosResponse } from "axios";
 import { DAY_LABELS } from "./constants.ts";
@@ -52,11 +52,6 @@ interface SearchOption {
   majors: string[];
   credits?: number;
 }
-
-type Schedule = {
-  day: string;
-  range: string[] | number[];
-};
 
 const TIME_SLOTS = [
   { id: 1, label: "09:00~09:30" },
@@ -170,7 +165,7 @@ const SearchDialog = ({ searchInfo, onClose }: Props) => {
       }
       if (
         times.length > 0 &&
-        !schedules.some((s) => s.range.some((time) => times.includes(time as number)))
+        !schedules.some((s) => s.range.some((time) => times.includes(time)))
       ) {
         return false;
       }
